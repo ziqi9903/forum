@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace : 全限定名, 与mapper对应  -->
+<mapper namespace="com.ziqi.forum.mapper.UserMapper">
+
+    <sql id="selectFields">
+        id,account_id,name,token,gmt_create,gmt_modified
+    </sql>
+    <sql id="insertFields">
+        id,account_id,name,token,gmt_create,gmt_modified
+    </sql>
+
+    <insert id="insert" parameterType="User" keyProperty="id">
+        insert into user (<include refid="insertFields"></include>)
+        values(#{id},#{account_id},#{name},#{token},#{gmt_create},#{gmt_modified})
+    </insert>
+
+    <select id="select">
+        select (<include refid="selectFields"></include>)
+        from user
+    </select>
+
+    <select id="selectById">
+        select (<include refid="selectFields"></include>)
+        from user
+        where id = #{id}
+    </select>
+
+    <select id="selectByAccountId">
+        select (<include refid="selectFields"></include>)
+        from user
+        where account_id = #{account_id}
+    </select>
+
+
+</mapper>
