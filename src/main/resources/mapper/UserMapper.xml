@@ -28,6 +28,13 @@
         where id = #{id}
     </select>
 
+<!--    <select id="findByToken">
+        select (<include refid="selectFields"></include>)
+        from user
+        where token = #{token}
+    </select>-->
+
+
     <select id="selectByAccountId">
         select (<include refid="selectFields"></include>)
         from user

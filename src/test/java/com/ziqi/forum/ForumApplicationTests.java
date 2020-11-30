@@ -30,4 +30,5 @@ class ForumApplicationTests {
 
         userMapper.insert(user);
     }
+
 }
