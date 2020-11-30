@@ -2,6 +2,8 @@ package com.ziqi.forum.controller;
 
 import com.ziqi.forum.dto.AccessTokenDto;
 import com.ziqi.forum.dto.GithubUser;
+import com.ziqi.forum.entity.User;
+import com.ziqi.forum.mapper.UserMapper;
 import com.ziqi.forum.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,11 +11,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
+
 @Controller
 public class AuthorizeController {
 
     @Autowired
     private GithubProvider githubProvider;
+
+    @Autowired
+    private UserMapper userMapper;
 
     /**
      * param 用于接收按钮提交的事件
@@ -32,8 +40,8 @@ public class AuthorizeController {
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code")String code,
-                           @RequestParam(name = "state")String state
-                            ){
+                           @RequestParam(name = "state")String state,
+                            HttpServletRequest request){
         AccessTokenDto accessTokenDto = new AccessTokenDto();
         accessTokenDto.setClient_id(clientId);
         accessTokenDto.setClient_secret(clientSecret);
@@ -49,13 +57,29 @@ public class AuthorizeController {
          * 传回github accessToken
          * 请求返回 user 的信息
          */
-        GithubUser user = githubProvider.getUser(accessToken);
+        GithubUser githubUser = githubProvider.getUser(accessToken);
 
-        /**
-         * 返回重定向的网页
-         * 登录完成后仍然返回到主页
-         */
-        return "index";
+        if (githubUser != null){
+            User user = new User();
+            //请求头问题,已处理
+            user.setName(githubUser.getName());
+            user.setAccount_id(String.valueOf(githubUser.getId()));
+
+            user.setToken(UUID.randomUUID().toString());
+            user.setGmt_create(System.currentTimeMillis());
+            user.setGmt_modified(user.getGmt_create());
+            userMapper.insert(user);
+            /**
+             * 登录成功,写cookie 和 session
+             */
+            request.getSession().setAttribute("user",githubUser);
+            return "redirect:index";
+        }else{
+            /**
+             * 登录失败,重新登录
+             */
+            return "redirect:index";
+        }
     }
 
 
