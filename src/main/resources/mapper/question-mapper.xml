@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace : 全限定名, 与mapper对应  -->
+<mapper namespace="com.ziqi.forum.mapper.UserMapper">
+
+    <sql id="insertFields">
+        id,title,describe,gmt_create,gmt_modified,creator,comment_count,view_count,like_count,tag
+    </sql>
+
+    <insert id="insertQuestion"  parameterType="Question" keyProperty="id">
+        insert into qusetion (<include refid="insertFields"></include>)
+        values (#{id},#{title},#{describe},#{gmt_create},#{gmt_modified},#{creator},#{comment_count},#{view_count},#{like_count},#{tag})
+    </insert>
+
+</mapper>
