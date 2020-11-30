@@ -1,59 +1,102 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <title>School Forum</title>
-    <!-- 引入bootstrap 的css 修饰文件 和 js 文件 -->
-    <link rel="stylesheet" href="/css/bootstrap.css">
-    <link rel="stylesheet" href="/css/bootstrap-theme.css">
-    <script src="/js/bootstrap.js" type="application/javascript"></script>
-
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Forum Topic </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/community.css">
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
 </head>
+
 <body>
 <!-- 导航栏设置 -->
 <nav class="navbar navbar-default">
+    <!--栅格系统 流式布局-->
     <div class="container-fluid">
         <!--左侧大标题-->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Forum</span>
+                <span class="sr-only">Toggle navigation</span>
             </button>
-            <!--点击跳转路径-->
             <a class="navbar-brand" href="#">Forum</a>
         </div>
-        <!--搜索栏设置-->
+
+
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <!--表单形式提交数据-->
+
+            <ul class="nav navbar-nav">
+                <li><a href="#">消息</a></li>
+            </ul>
+            <!--表单提交数据-->
             <form class="navbar-form navbar-left">
-                <!--搜索输入-->
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Search">
                 </div>
-                <!--button 方式提交搜索选项-->
-                <button type="submit" class="btn btn-default">Search</button>
+                <button type="submit" class="btn btn-default">Submit</button>
             </form>
-            <!--右侧设置 横向有序列表形式-->
+
             <ul class="nav navbar-nav navbar-right">
-                <!--登录链接-->
-                <li><a href="#">Login</a></li>
-                <!--下拉选项,个人页面-->
+                <li><a href="https://github.com/login/oauth/authorize?client_id=e211000131fd0280838f&redirect_uri=http://localhost:8081/callback&scope=user&state=1">登录</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Me<span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ME<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">消息中心</a></li>
+                        <li><a href="#">个人中心</a></li>
                         <li><a href="#">个人资料</a></li>
                         <li><a href="#">退出登录</a></li>
                     </ul>
                 </li>
             </ul>
+        </div>
+    </div>
+</nav>
+
+<nav>
+    <!--页面中间元素 采用栅格系统流式布局-->
+    <div class="container-fluid">
+        <div class="row main">
+
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <h4><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</h4>
+                <hr>
+                <form action="#">
+                    <div class="form-group">
+                        <label for="title">论坛话题</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="话题...">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">话题补充</label>
+                        <textarea  name="description" id="description" class="form-control" cols="30" rows="15"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tag">选择话题分类</label>
+                        <input type="text" class="form-control" id="tag" name="tag" placeholder="话题分类 , 以 , 号分隔">
+                    </div>
+                    <button type="submit" class="btn btn-success btn-publish" >发布话题</button>
+                </form>
+            </div>
+
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <h4>知识点</h4>
+                - Spring Boot <hr>
+                - IDEA/Shotcut<hr>
+                - 快捷键<hr>
+                - Refactor<hr>
+                - 重构,封装<hr>
+                - Source Code<hr>
+                - 源码分析<hr>
+                - Git/Github<hr>
+            </div>
 
         </div>
-
     </div>
 </nav>
 
 
-
-
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
